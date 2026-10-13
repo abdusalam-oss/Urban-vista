@@ -1,0 +1,30 @@
+# Public-data urban-land-COVER benchmark; NOT the original paper's five land-USE labels.
+name: berlin_worldcover_2021
+study_area: Berlin, Germany
+bbox: [13.25, 52.45, 13.55, 52.59] # west, south, east, north
+start_date: "2021-03-01"
+end_date: "2021-10-31"
+source_year: 2021
+n_dates: 4
+scene_cloud_max_pct: 35
+max_patch_cloud_fraction: 0.35
+bands: [B02, B03, B04, B08]
+resolution_m: 10
+patch_size: 128
+min_label_coverage: 0.75
+min_class_dominance: 0.38
+seed: 42
+geographic_block_patches: 3
+output_dir: data/processed/berlin_worldcover_2021
+training:
+  epochs: 100
+  batch_size: 32
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  patience: 10
+  num_workers: 0
+  classification_weight: 1.0
+  segmentation_weight: 1.0
+  pretrained: false
+  seeds: [11, 22, 33, 44, 55]
+  device: auto
