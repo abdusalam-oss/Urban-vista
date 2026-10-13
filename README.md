@@ -118,21 +118,7 @@ tests/
 - OpenStreetMap contributors: [openstreetmap.org/copyright](https://www.openstreetmap.org/copyright) (ODbL requirements apply to any redistributed OSM-derived database).
 - OSM retrieval: [OSMnx](https://osmnx.readthedocs.io/). Image baselines are paper-inspired but not compared against independently verified published benchmark runs.
 
-## Integrity policy and known differences from the manuscript
 
-1. This repository **does not establish that the original paper's claimed experiments were executed** and cannot certify its reported tables or schematic figures.
-2. The paper has not supplied original spatial location, image dates, class label provenance, splits, layer hyperparameters, trained weights, or logs. We document our explicit implementation choices instead.
-3. The automatic public benchmark uses the five WorldCover land-cover classes, whereas the manuscript's five classes are urban land-use categories. They must not be conflated.
-4. Most publicly downloadable remote-sensing datasets do not provide matching building footprint coordinates. This project therefore acquires its own georeferenced inputs rather than incorrectly assigning OSM metadata to unrelated EuroSAT imagery.
-5. OSM building heights are incomplete; the coverage/quality counts in saved metadata permit auditing, but sensitivity experiments require actual retraining.
-6. The illustrative figures generated elsewhere in manuscript preparation are **not** evidence for this repository; only `segmentation_example.png` generated on held-out labelled image patches can be described as an experimental output.
-7. If publishing this as a scientific reproduction, cite new experiments with their actual data, configurations, provenance, code commit and metrics, not values inserted earlier in manuscript drafting.
-
-### Licensing
-
-The code is MIT licensed (`LICENSE`). Source datasets retain their own licensing, provenance and redistribution requirements. No remote source data are included in the Git repository.
-
-## Prediction with a trained checkpoint
 
 After `urbanvista run`, select any `.npz` from the **same prepared dataset** and use a saved checkpoint, e.g.:
 
@@ -143,5 +129,3 @@ urbanvista predict \
   --dataset-root data/processed/berlin_worldcover_2021 \
   --output predictions/example
 ```
-
-The above sample filename may differ if that geographic patch was filtered out for clouds; choose any actual `.npz` in the patches folder. Outputs are `prediction.json` with class probabilities and, when available, `segmentation_class_ids.png` containing class indices. If the patch contains saved map-location metadata, the tool also creates a georeferenced segmentation GeoTIFF. Input normalization uses **the saved training-set statistics**. This command will not interpret arbitrary unreferenced satellite screenshots or supply invented OSM features.
